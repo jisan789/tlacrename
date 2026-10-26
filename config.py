@@ -1,0 +1,6 @@
+# Telegram Credentials embedded directly in code as requested
+API_ID = 27634392
+API_HASH = "c29325ca5de227dc611e54d355f76896"
+SESSION_STRING = (
+    "1BVtsOIUBuxS0ilZBIjSE8qxbVvIoUq_bv0gQ2d7APh2UDvhIjv2iZhC8tzus2_Tlh1iD3sbtLjYTa84pyUKg165_pT_lX8gvMb5OxPYisZjTSJY80OioHZeJus1f8u-SSyCwN-RxMDyp4Kp5ed4pGi5Jq9J_1K4lLEtQoC4z47Sa35nWfckeJkfjU30iphYqLXrEDYWuZmTZhImBD9wuSzthjP1ArYCBy3VV8Rr7s4vkoXT9dsXzbhka8-C6w1xw048skTkfW_M07N6AD_VYSmzuEWS3259h5wT91aWxZ5sFSHNh_T_--_s-e7kvPDdysoINfmGuGd5PcO3b_g28-rrirOs6nbA="
+)

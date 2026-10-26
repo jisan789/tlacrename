@@ -1,52 +1,78 @@
-# 🎬 ReelStream — Minimalist Solo & Shared Live Video Player
+# Telegram Account Name Service
 
-A clean, responsive, zero-swipe vertical video player for streaming random reels solo or together with others in a single shared live room.
-
----
-
-## ✨ Features
-
-- **No Separate Rooms**: There is only **one single shared live room**. No room creation, no room codes, and no passwords.
-- **Two Seamless Modes**:
-  - **Single View (Solo)**: Browse and watch random preloaded reels on your own.
-  - **Watch Together**: Toggle "Watch Together" to automatically connect to the live room. Whenever someone else turns on Watch Together, you are instantly connected together!
-- **Real-Time Live Synchronization**:
-  - **Reel Sync**: When anyone in the live room clicks Next (<kbd>↓</kbd>) or Prev (<kbd>↑</kbd>), the exact same reel plays for everyone in real time.
-  - **Love React Sync**: Double-tap and heart reacts trigger on all live viewers' screens with real-time count.
-  - **Live Comments**: Comments are broadcast live to all active viewers.
-  - **Presence Indicator**: Live status badge displays the count of connected viewers (`Live (2 online) 🟢`).
-- **Zero-Swipe Fixed Stage**:
-  - Pure video viewing with zero touch-drag lag or scrolling stutters.
-  - Simple Up & Down button navigation.
-  - Background preloading of the next random reel for instant playback.
-- **Clean Architecture**:
-  - Python backend (`FastAPI` + `Uvicorn` + `WebSockets`) with zero Node.js dependencies.
+A lightweight web service and API to display and update your Telegram account name via Telethon MTProto, with Swagger API documentation and an automatic keepalive pinger for Render.
 
 ---
 
-## 🚀 How to Run
+## Interactive API Documentation
 
-```bash
-python server.py
-```
-
-Open in your browser:
-👉 **[http://localhost:3000](http://localhost:3000)**
-
-- By default, you start in **Single View**.
-- Click **"Watch Together"** in the top-right corner to automatically join the live room with other viewers.
-- Click it again to return to **Single View** anytime.
+- **Swagger UI:** **[http://localhost:8000/docs](http://localhost:8000/docs)** (Interactive testing of all endpoints directly in browser)
+- **ReDoc:** **[http://localhost:8000/redoc](http://localhost:8000/redoc)**
+- **OpenAPI Schema:** `GET /openapi.json`
 
 ---
 
-## ⌨️ Controls & Keyboard Shortcuts
+## Configuration
 
-| Control | Action |
-| --- | --- |
-| <kbd>↓</kbd> or <kbd>J</kbd> | Next Random Reel (Synced live when in Watch Together) |
-| <kbd>↑</kbd> or <kbd>K</kbd> | Previous Reel (Session History) |
-| <kbd>Space</kbd> or Tap | Play / Pause (Synced live) |
-| Double Tap on Screen | Love React (Heart burst on all screens) |
-| <kbd>L</kbd> | Love React Toggle |
-| <kbd>M</kbd> | Audio Mute / Unmute |
-| <kbd>C</kbd> | Open Live Comments Drawer |
+Credentials (`API_ID`, `API_HASH`, and `SESSION_STRING`) are hardcoded directly in [`config.py`](file:///c:/Users/Jisan/Desktop/playground/config.py). No `.env` file or environment variables are required.
+
+---
+
+## Deploying to Render
+
+Since credentials are built directly into the codebase, deploying to Render requires no environment variable configuration:
+
+1. Push your repository to GitHub.
+2. In [Render Dashboard](https://dashboard.render.com/), click **New +** > **Web Service**.
+3. Select your repository.
+4. Set:
+   - **Environment:** `Python`
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `uvicorn app:app --host 0.0.0.0 --port $PORT`
+5. Click **Create Web Service**.
+
+---
+
+## Keepalive Pinger (`/ping`)
+
+To prevent the service from sleeping on Render's free tier (which spins down after 15 minutes of inactivity):
+
+- **Health Check Endpoint:** `GET /ping`
+- **Self-Pinger:** The application runs an automatic background pinger:
+  - If on Render, it automatically detects your live URL via Render's `RENDER_EXTERNAL_URL` environment variable and pings itself every 10 minutes.
+  - You can also optionally specify a custom URL via the `PING_URL` environment variable.
+
+---
+
+## API Endpoints
+
+### 1. View Account Name
+- **URL:** `GET /name`
+- **Response:**
+  ```json
+  {
+    "name": "Galif",
+    "first_name": "Galif",
+    "last_name": ""
+  }
+  ```
+
+### 2. Update Account Name
+- **URL:** `POST /name`
+- **Headers:** `Content-Type: application/json`
+- **Body:**
+  ```json
+  {
+    "name": "New Name"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Account name updated successfully",
+    "name": "New Name",
+    "first_name": "New",
+    "last_name": "Name"
+  }
+  ```

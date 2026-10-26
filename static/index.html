@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Account Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="name-display-container">
+    <div class="account-card">
+      <span class="label-tag">Telegram Account Name</span>
+      <h1 class="account-name" id="account-name">Loading...</h1>
+
+      <form id="update-name-form" class="update-form">
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="new-name-input" 
+            placeholder="Enter new account name..." 
+            autocomplete="off"
+            required
+          />
+          <button type="submit" id="submit-btn" class="btn-update">
+            <span>Change Name</span>
+          </button>
+        </div>
+      </form>
+
+      <div id="status-message" class="status-msg hidden"></div>
+
+      <div class="api-hint-box">
+        <div class="api-hint-header">
+          <span class="api-label">Interactive Docs</span>
+          <a href="/docs" target="_blank" class="docs-link">Open Swagger UI (/docs) &rarr;</a>
+        </div>
+        <div class="api-example">
+          Endpoint: <code>POST /name</code> | Body: <code>{"name": "New Name"}</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

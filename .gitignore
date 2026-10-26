@@ -1,9 +1,7 @@
-__pycache__/
-*.py[cod]
-*$py.class
 .env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 .venv/
 env/
-venv/
-node_modules/
-.DS_Store

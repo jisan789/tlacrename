@@ -1,11 +1,9 @@
 services:
   - type: web
-    name: reelstream
+    name: telegram-account-service
     runtime: python
-    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
-    autoDeploy: true
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.8
+      - key: PING_INTERVAL
+        value: "600"
